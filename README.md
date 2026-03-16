@@ -2,7 +2,7 @@
 
 > A Claude-powered data quality monitoring bot for Snowflake pipelines — with self-healing and Slack alerting.
 
-Built by a Senior Data Engineer who has processed **100M+ daily events** at SoFi with **99.9% pipeline SLA**. This agent brings fintech-grade reliability to any data team.
+Built by a Senior Data Engineer. This agent brings fintech-grade reliability to any data team.
 
 ---
 
