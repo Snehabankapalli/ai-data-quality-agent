@@ -1,0 +1,87 @@
+# Data Quality Check Configuration
+# Mirrors production fintech pipeline patterns (SoFi-grade reliability)
+
+checks:
+  freshness:
+    - table: TRANSACTIONS
+      max_hours_since_load: 4          # Same-day credit reporting SLA
+      schedule: "*/30 * * * *"         # Every 30 minutes
+      severity: critical
+      owner: data-engineering
+
+    - table: PAYMENTS
+      max_hours_since_load: 1
+      schedule: "*/15 * * * *"
+      severity: critical
+      owner: data-engineering
+
+    - table: MEMBER_PROFILES
+      max_hours_since_load: 24
+      schedule: "0 * * * *"
+      severity: high
+      owner: data-engineering
+
+  completeness:
+    - table: TRANSACTIONS
+      columns:
+        - name: TRANSACTION_ID
+          max_null_pct: 0.0
+          severity: critical
+        - name: AMOUNT
+          max_null_pct: 0.0
+          severity: critical
+        - name: MERCHANT_NAME
+          max_null_pct: 5.0
+          severity: medium
+        - name: CARD_ID
+          max_null_pct: 0.0
+          severity: critical
+
+    - table: PAYMENTS
+      columns:
+        - name: PAYMENT_ID
+          max_null_pct: 0.0
+          severity: critical
+        - name: PAYMENT_STATUS
+          max_null_pct: 0.0
+          severity: critical
+
+  anomaly:
+    - table: TRANSACTIONS
+      metric: row_count
+      window_days: 7
+      z_score_threshold: 3.0          # Flag if > 3 std devs from rolling mean
+      min_expected_rows: 10000
+      severity: high
+
+    - table: TRANSACTIONS
+      metric: avg_amount
+      window_days: 30
+      z_score_threshold: 2.5
+      severity: medium
+
+    - table: PAYMENTS
+      metric: row_count
+      window_days: 7
+      z_score_threshold: 3.0
+      min_expected_rows: 1000
+      severity: high
+
+healing:
+  auto_actions:
+    - trigger: freshness_violation
+      action: refresh_materialized_view
+      max_retries: 3
+
+    - trigger: pipeline_stale
+      action: trigger_dbt_run
+      max_retries: 2
+      models: ["stg_transactions", "int_payments", "fct_credit_card_daily"]
+
+  escalation:
+    - severity: critical
+      notify: oncall
+      page_after_minutes: 15
+    - severity: high
+      notify: team_channel
+      page_after_minutes: 60

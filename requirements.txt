@@ -1,0 +1,11 @@
+anthropic>=0.40.0
+snowflake-connector-python>=3.6.0
+slack-sdk>=3.27.0
+apache-airflow>=2.8.0
+pyyaml>=6.0.1
+pandas>=2.1.0
+numpy>=1.26.0
+scipy>=1.11.0
+python-dotenv>=1.0.0
+structlog>=24.1.0
+tenacity>=8.2.3
