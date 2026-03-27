@@ -1,0 +1,9 @@
+anthropic==0.34.0
+snowflake-connector-python==3.8.0
+apache-airflow-client==2.9.0
+boto3==1.34.0
+requests==2.31.0
+apscheduler==3.10.4
+pydantic-settings==2.2.0
+pytest==8.1.0
+pytest-mock==3.14.0
