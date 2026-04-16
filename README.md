@@ -7,6 +7,8 @@
 ![Apache Airflow](https://img.shields.io/badge/Airflow-017CEE?style=flat&logo=apacheairflow&logoColor=white)
 ![Snowflake](https://img.shields.io/badge/Snowflake-29B5E8?style=flat&logo=snowflake&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-FF9900?style=flat&logo=amazonaws&logoColor=white)
+[![CI](https://github.com/Snehabankapalli/ai-data-quality-agent-llm-data-validation-automation/actions/workflows/ci.yml/badge.svg)](https://github.com/Snehabankapalli/ai-data-quality-agent-llm-data-validation-automation/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
 
@@ -206,6 +208,18 @@ pytest tests/ -v
 - Proactive anomaly prediction using time-series models on historical pipeline metrics
 - Multi-LLM routing: use cheaper models for low-severity alerts, Claude Opus for P1 diagnosis
 - GitHub PR integration: auto-create fix PRs with the generated SQL changes
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
+
+---
+
+## License
+
+MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
